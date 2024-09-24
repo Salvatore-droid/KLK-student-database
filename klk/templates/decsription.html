@@ -1,0 +1,14 @@
+{% extends "main.html" %}
+{% block content %}
+{% for student in students %}
+    <div class="card mt-3" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">about my home page</h5>
+            <h6 class="card-subtitle mb-2 text-muted">students home</h6>
+            <p class="card-text">{{ student.description }}</p>
+            <a href="{{url_for('add_beneficiary')}}" class="card-link">update</a>
+            <a href="{{url_for('home')}}" class="card-link">home</a>
+        </div>
+    </div>
+{% endfor %}
+{% endblock %}

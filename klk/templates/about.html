@@ -1,0 +1,16 @@
+{% extends "main.html" %}
+{% block content %}
+    <div class="card mt-3" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">about my home page</h5>
+            <h6 class="card-subtitle mb-2 text-muted">students home</h6>
+            <p class="card-text">This is the description of my home page.</p>
+            <a href="{{url_for('logout')}}" class="card-link">logout</a>
+            <a href="{{url_for('home')}}" class="card-link">home</a>
+        </div>
+    </div>
+{% endblock %}
+# dateposted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    # email = db.Column(db.String(120), unique=True, nullable=False)
+    # image = db.Column(db.String(20),  nullable=False, default='default.jpg')
+    
