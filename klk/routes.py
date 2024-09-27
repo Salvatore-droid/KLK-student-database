@@ -9,7 +9,7 @@ from flask_login import login_user, current_user, logout_user, login_required
 @login_required
 def home():
     students = Student.query.all()
-    image_file = url_for('static', filename='images/KLK_Logo.jpg')
+    image_file = url_for('static', filename='images/' + current_user.image)
     return render_template('home.html', students=students, image_file=image_file)
 
 @app.route("/add_beneficiary", methods=['GET', 'POST'])
@@ -17,12 +17,18 @@ def home():
 def add_beneficiary():
     form = StudentForm()
     if form.validate_on_submit():
-        student = Student(studentname=form.studentname.data, school=form.school.data, year=form.year.data, description=form.description.data)
+        student = Student(studentname=form.studentname.data, school=form.school.data, year=form.year.data, course=form.course.data, description=form.description.data)
         db.session.add(student)
         db.session.commit()
         flash(f'The student as been added successfully!', 'success')
         return redirect(url_for('home'))
     return render_template('add_beneficiary.html', title ='add_beneficiary', form=form)
+
+@app.route("/home/<int:beneficiary_id>")
+@login_required
+def beneficiary(beneficiary_id):
+    beneficiary = Student.query.get_or_404(beneficiary_id)
+    return render_template('beneficiary.html', title=beneficiary.studentname, beneficiary=beneficiary)
 
 @app.route("/register", methods=['GET', 'POST']) 
 def register():

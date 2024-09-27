@@ -1,4 +1,5 @@
 from flask_wtf import FlaskForm
+from flask_wtf.file import FileField, FileAllowed
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, IntegerField, TextAreaField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from klk.models import User, Student
@@ -31,9 +32,10 @@ class LoginForm(FlaskForm):
 class StudentForm(FlaskForm):
     studentname = StringField('Student Name:', validators=[DataRequired(), Length(min=2 , max=20)])
     school = StringField('School:', validators=[DataRequired(), Length(min=2 , max=20)])
-    year = IntegerField('Year in/Class/Form:', validators=[DataRequired()])
-    course = IntegerField('course taking:', validators=[DataRequired()])
+    year = StringField('Year in/Class/Form:', validators=[DataRequired()])
+    course = StringField('Course Taking:', validators=[DataRequired(), Length(min=2 , max=20)])
     description = TextAreaField('Description:', validators=[DataRequired()])
+    picture = FileField('Upload student picture', validators=[FileAllowed(['jpg', 'png'])])
     submit = SubmitField('Add')
 
     
