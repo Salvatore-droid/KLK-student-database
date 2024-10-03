@@ -33,7 +33,7 @@ class StudentForm(FlaskForm):
     studentname = StringField('Student Name:', validators=[DataRequired(), Length(min=2 , max=20)])
     school = StringField('School:', validators=[DataRequired(), Length(min=2 , max=20)])
     year = StringField('Year in/Class/Form:', validators=[DataRequired()])
-    course = StringField('Course Taking:', validators=[DataRequired(), Length(min=2 , max=20)])
+    course = StringField('Course Taking:', validators=[DataRequired(), Length(min=2 , max=50)])
     description = TextAreaField('Description:', validators=[DataRequired()])
     picture = FileField('Upload student picture', validators=[FileAllowed(['jpg', 'png'])])
     submit = SubmitField('Add')

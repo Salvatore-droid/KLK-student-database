@@ -1,0 +1,25 @@
+{% extends "main.html" %}
+{% block content %}
+    <ul>
+        {% for student in results %}
+            <li>
+                <div class="card mb-3 mt-3" style="max-width: 540px;">
+                    <div class="row no-gutters">
+                        <div class="col-md-4">
+                            <img class="account-img" src="{{ image_file }}">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h3 class="card-title text-primary">{{ student.studentname }}</h3>
+                                <p class="card-text">school: <span class=" text-info">{{ student.school }}</span></p>
+                                <p class="card-text">course: <span class=" text-info">{{ student.course }}</span></p>
+                                <h5 class="card-text"><small class="text-muted">year: {{ student.year }}</small></h5>
+                                <a href="{{ url_for('beneficiary', beneficiary_id=student.id) }}" class="btn btn-primary">view</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

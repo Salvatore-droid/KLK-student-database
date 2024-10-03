@@ -22,7 +22,7 @@ class Student(db.Model):
     studentname = db.Column(db.String(20), nullable=False)
     school = db.Column(db.String(120), nullable=False)
     year = db.Column(db.String, nullable=False)
-    course = db.Column(db.String(20), nullable=False)
+    course = db.Column(db.String(50), nullable=False)
     description = db.Column(db.Text, nullable=False)
     results = db.Column(db.Integer, nullable=True)
     student_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)

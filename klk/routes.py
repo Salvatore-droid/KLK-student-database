@@ -1,8 +1,9 @@
-from flask import render_template, url_for, redirect, flash
+from flask import render_template, url_for, redirect, flash, request
 from klk import app, db,  bcrypt
 from klk.form import RegistrationForm, LoginForm, StudentForm
 from klk.models import User, Student
 from flask_login import login_user, current_user, logout_user, login_required
+# import secrets
 
 
 @app.route("/home")
@@ -11,6 +12,21 @@ def home():
     students = Student.query.all()
     image_file = url_for('static', filename='images/' + current_user.image)
     return render_template('home.html', students=students, image_file=image_file)
+
+@app.route("/search", methods=['GET'])
+@login_required
+def search():
+    query = request.args.get('query', '').strip()
+    if query:
+        first_letter = query[0].lower()
+        results = Student.query.filter(Student.studentname.ilike(f'{first_letter}%')).all()
+    else:
+        results = []
+    return render_template('search.html', results=results)
+
+# def save_picture(form_picture):
+#     random = secrets.token_hex(8)
+    
 
 @app.route("/add_beneficiary", methods=['GET', 'POST'])
 @login_required
