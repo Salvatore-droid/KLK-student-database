@@ -3,14 +3,14 @@ from klk import app, db,  bcrypt
 from klk.form import RegistrationForm, LoginForm, StudentForm
 from klk.models import User, Student
 from flask_login import login_user, current_user, logout_user, login_required
-# import secrets
-
+# import secrets, os
+# from PIL import Image
 
 @app.route("/home")
 @login_required
 def home():
     students = Student.query.all()
-    image_file = url_for('static', filename='images/' + current_user.image)
+    image_file = url_for('static', filename='images/' + current_user.picture)
     return render_template('home.html', students=students, image_file=image_file)
 
 @app.route("/search", methods=['GET'])
@@ -26,6 +26,17 @@ def search():
 
 # def save_picture(form_picture):
 #     random = secrets.token_hex(8)
+#     _, f_ext = os.path.splitext(form_picture.filename)
+#     picture_fn = random + f_ext
+#     picture_path = os.path.join(app.root_path, 'static/images', picture_fn)
+#     form_picture.save(picture_path)
+    
+#     # output_size = (125, 125)
+#     # i = Image.open(form_picture)
+#     # i.thumbnail(output_size)
+#     # i.save(picture_path)
+
+#     return picture_fn
     
 
 @app.route("/add_beneficiary", methods=['GET', 'POST'])
@@ -33,6 +44,8 @@ def search():
 def add_beneficiary():
     form = StudentForm()
     if form.validate_on_submit():
+        if form.picture.data:
+            picture_file = save_picture(form.picture.data)
         student = Student(studentname=form.studentname.data, school=form.school.data, year=form.year.data, course=form.course.data, description=form.description.data)
         db.session.add(student)
         db.session.commit()

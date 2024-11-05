@@ -9,7 +9,7 @@ def user_load(student_id):
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
-    image = db.Column(db.String(20),  nullable=False, default='KLK_Logo.jpg')
+    picture = db.Column(db.String(20),  nullable=False, default='KLK_Logo.jpg')
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
     students = db.relationship('Student', backref='name', lazy=True)
@@ -24,6 +24,7 @@ class Student(db.Model):
     year = db.Column(db.String, nullable=False)
     course = db.Column(db.String(50), nullable=False)
     description = db.Column(db.Text, nullable=False)
+    # picture = db.Column(db.LargeBinary(20),  nullable=False, default='KLK_Logo.jpg')
     results = db.Column(db.Integer, nullable=True)
     student_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
 
