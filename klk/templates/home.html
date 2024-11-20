@@ -12,7 +12,12 @@
             <p class="card-text">school: <span class=" text-info">{{ student.school }}</span></p>
             <p class="card-text">course: <span class=" text-info">{{ student.course }}</span></p>
             <h5 class="card-text"><small class="text-muted">year: {{ student.year }}</small></h5>
-            <a href="{{ url_for('beneficiary', beneficiary_id=student.id) }}" class="btn btn-primary">view</a>
+            <div class="d-flex " style="justify-content: space-between;">
+              <a href="{{ url_for('beneficiary', beneficiary_id=student.id) }}" class="btn btn-primary">view</a>
+              <form action="{{ url_for('delete_beneficiary', beneficiary_id=student.id) }}">
+                <input type="submit" value="delete" class="btn btn-danger">
+              </form>
+            </div>
           </div>
         </div>
       </div>

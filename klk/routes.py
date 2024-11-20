@@ -99,3 +99,13 @@ def logout():
 def description():
     students = Student.query.all()
     return render_template('description.html', students=students)
+
+
+@app.route("/home/<int:beneficiary_id>/delete")
+@login_required
+def delete_beneficiary(beneficiary_id):
+    beneficiary = Student.query.get_or_404(beneficiary_id)
+    db.session.delete(beneficiary)
+    db.session.commit()
+    flash(f'Student {beneficiary.studentname} deleted successfullly', 'success')
+    return redirect(url_for('home'))
