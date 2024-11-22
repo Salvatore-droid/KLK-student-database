@@ -3,8 +3,8 @@ from klk import db, login_manager
 from flask_login import UserMixin
 
 @login_manager.user_loader
-def user_load(student_id):
-    return User.query.get(int(student_id))
+def user_load(user_id):
+    return User.query.get(int(user_id))
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -26,8 +26,8 @@ class Student(db.Model):
     description = db.Column(db.Text, nullable=False)
     # picture = db.Column(db.LargeBinary(20),  nullable=False, default='KLK_Logo.jpg')
     results = db.Column(db.Integer, nullable=True)
-    student_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):
-        return f"User('{self.studentname}', '{self.school}', '{self.year}', '{self.course}', '{self.results}', '{self.descrition}')"
+        return f"User('{self.studentname}', '{self.school}', '{self.year}', '{self.course}', '{self.results}', '{self.description}')"
 

@@ -9,7 +9,7 @@ from flask_login import login_user, current_user, logout_user, login_required
 @app.route("/home")
 @login_required
 def home():
-    students = Student.query.all()
+    students = Student.query.filter_by(user_id=current_user.id).all()
     image_file = url_for('static', filename='images/' + current_user.picture)
     return render_template('home.html', students=students, image_file=image_file)
 
@@ -46,7 +46,7 @@ def add_beneficiary():
     if form.validate_on_submit():
         if form.picture.data:
             picture_file = save_picture(form.picture.data)
-        student = Student(studentname=form.studentname.data, school=form.school.data, year=form.year.data, course=form.course.data, description=form.description.data)
+        student = Student(studentname=form.studentname.data, user_id=current_user.id, school=form.school.data, year=form.year.data, course=form.course.data, description=form.description.data)
         db.session.add(student)
         db.session.commit()
         flash(f'The student as been added successfully!', 'success')
@@ -56,7 +56,7 @@ def add_beneficiary():
 @app.route("/home/<int:beneficiary_id>")
 @login_required
 def beneficiary(beneficiary_id):
-    beneficiary = Student.query.get_or_404(beneficiary_id)
+    beneficiary = Student.query.filter_by(id=beneficiary_id, user_id=current_user.id).first_or_404()
     return render_template('beneficiary.html', title=beneficiary.studentname, beneficiary=beneficiary)
 
 @app.route("/register", methods=['GET', 'POST']) 
@@ -97,14 +97,14 @@ def logout():
 @app.route("/description")
 @login_required
 def description():
-    students = Student.query.all()
+    students = Student.query.filter_by(user_id=current_user.id).all()
     return render_template('description.html', students=students)
 
 
 @app.route("/home/<int:beneficiary_id>/delete")
 @login_required
 def delete_beneficiary(beneficiary_id):
-    beneficiary = Student.query.get_or_404(beneficiary_id)
+    beneficiary = Student.query.filter_by(id=beneficiary_id, user_id=current_user.id).first_or_404()
     db.session.delete(beneficiary)
     db.session.commit()
     flash(f'Student {beneficiary.studentname} deleted successfullly', 'success')
