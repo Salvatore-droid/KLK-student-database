@@ -31,6 +31,7 @@ class LoginForm(FlaskForm):
 
 class StudentForm(FlaskForm):
     studentname = StringField('Student Name:', validators=[DataRequired(), Length(min=2 , max=20)])
+    addmission = StringField('Addmission Number:', validators=[DataRequired(), Length(min=2 , max=20)])
     school = StringField('School:', validators=[DataRequired(), Length(min=2 , max=20)])
     year = StringField('Year in/Class/Form:', validators=[DataRequired()])
     course = StringField('Course Taking:', validators=[DataRequired(), Length(min=2 , max=50)])

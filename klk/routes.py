@@ -3,15 +3,20 @@ from klk import app, db,  bcrypt
 from klk.form import RegistrationForm, LoginForm, StudentForm
 from klk.models import User, Student
 from flask_login import login_user, current_user, logout_user, login_required
-# import secrets, os
+import secrets, os
 # from PIL import Image
 
 @app.route("/home")
 @login_required
 def home():
     students = Student.query.filter_by(user_id=current_user.id).all()
-    image_file = url_for('static', filename='images/' + current_user.picture)
-    return render_template('home.html', students=students, image_file=image_file)
+    picture_file = url_for('static', filename='images/' + Student.picture)
+    # for student in students:
+    # students_with_pictures = []
+    #     students_with_picture.append({
+    #         'picture': picture_file
+    #     })
+    return render_template('home.html', students=students, picture=picture_file)
 
 @app.route("/search", methods=['GET'])
 @login_required
@@ -24,19 +29,19 @@ def search():
         results = []
     return render_template('search.html', results=results)
 
-# def save_picture(form_picture):
-#     random = secrets.token_hex(8)
-#     _, f_ext = os.path.splitext(form_picture.filename)
-#     picture_fn = random + f_ext
-#     picture_path = os.path.join(app.root_path, 'static/images', picture_fn)
-#     form_picture.save(picture_path)
+def save_picture(form_picture):
+    random_hex = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(form_picture.filename)
+    picture_fn = random_hex + f_ext
+    picture_path = os.path.join(app.root_path, 'static/images', picture_fn)
+    form_picture.save(picture_path)
     
-#     # output_size = (125, 125)
-#     # i = Image.open(form_picture)
-#     # i.thumbnail(output_size)
-#     # i.save(picture_path)
+    # output_size = (125, 125)
+    # i = Image.open(form_picture)
+    # i.thumbnail(output_size)
+    # i.save(picture_path)
 
-#     return picture_fn
+    return picture_fn
     
 
 @app.route("/add_beneficiary", methods=['GET', 'POST'])
@@ -46,7 +51,17 @@ def add_beneficiary():
     if form.validate_on_submit():
         if form.picture.data:
             picture_file = save_picture(form.picture.data)
-        student = Student(studentname=form.studentname.data, user_id=current_user.id, school=form.school.data, year=form.year.data, course=form.course.data, description=form.description.data)
+
+        student = Student(
+            studentname=form.studentname.data, 
+            user_id=current_user.id, 
+            addmission=form.addmission.data,
+            school=form.school.data, 
+            year=form.year.data, 
+            course=form.course.data, 
+            description=form.description.data,
+            picture = picture_file
+        )
         db.session.add(student)
         db.session.commit()
         flash(f'The student as been added successfully!', 'success')
@@ -107,5 +122,33 @@ def delete_beneficiary(beneficiary_id):
     beneficiary = Student.query.filter_by(id=beneficiary_id, user_id=current_user.id).first_or_404()
     db.session.delete(beneficiary)
     db.session.commit()
-    flash(f'Student {beneficiary.studentname} deleted successfullly', 'success')
+    flash(f'Student {beneficiary.studentname} successfullly deleted', 'success')
     return redirect(url_for('home'))
+
+# @app.route("/home/<int:beneficiary_id>/update")
+# @login_required
+# def update_beneficiary(beneficiary_id):
+#     beneficiary = Student.query.filter_by(id=beneficiary_id, user_id=current_user.id).first_or_404()
+#     form = StudentForm()
+#     if form.validate_on_submit():
+#         if form.picture.data:
+#             picture_file = save_picture(form.picture.data)
+
+#         student = Student(
+#             studentname=form.studentname.data, 
+#             user_id=current_user.id, 
+#             addmission=form.addmission.data,
+#             school=form.school.data, 
+#             year=form.year.data, 
+#             course=form.course.data, 
+#             description=form.description.data,
+#             picture = picture_file
+#         )
+#         db.session.add(student)
+#         db.session.commit()
+#         flash(f'The student as been added successfully!', 'success')
+#         return redirect(url_for('home'))
+#     db.session.update(beneficiary)
+#     db.session.commit()
+#     flash(f"Student {beneficiary.studentname}'s deatils successfullly updated", 'success')
+#     return redirect(url_for('home'))

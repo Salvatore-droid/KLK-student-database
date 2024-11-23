@@ -19,6 +19,19 @@
                     {% endif %}
                 </div>
                 <div class="form-group">
+                    {{ form.addmission.label(class="form-control-label") }}
+                    {% if form.addmission.errors %}
+                        {{ form.addmission(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.addmission.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.addmission(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
                     {{ form.school.label(class="form-control-label") }}
                     {% if form.school.errors %}
                         {{ form.school(class="form-control form-control-lg is-invalid") }}
