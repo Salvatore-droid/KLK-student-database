@@ -33,8 +33,17 @@ class StudentForm(FlaskForm):
     studentname = StringField('Student Name:', validators=[DataRequired(), Length(min=2 , max=20)])
     addmission = StringField('Addmission Number:', validators=[DataRequired(), Length(min=2 , max=20)])
     school = StringField('School:', validators=[DataRequired(), Length(min=2 , max=20)])
-    year = StringField('Year in/Class/Form:', validators=[DataRequired()])
+    year = StringField('Year:', validators=[DataRequired()])
     course = StringField('Course Taking:', validators=[DataRequired(), Length(min=2 , max=50)])
+    description = TextAreaField('Description:', validators=[DataRequired()])
+    picture = FileField('Upload student picture', validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
+    submit = SubmitField('Add')
+
+class HighForm(FlaskForm):
+    studentname = StringField('Student Name:', validators=[DataRequired(), Length(min=2 , max=20)])
+    addmission = StringField('Addmission Number:', validators=[DataRequired(), Length(min=2 , max=20)])
+    school = StringField('School:', validators=[DataRequired(), Length(min=2 , max=20)])
+    form = StringField('Form:', validators=[DataRequired()])
     description = TextAreaField('Description:', validators=[DataRequired()])
     picture = FileField('Upload student picture', validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
     submit = SubmitField('Add')

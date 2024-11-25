@@ -1,0 +1,30 @@
+{% extends "index.html" %}
+{% block content %}
+{% for student in students %}
+  <div class="card mb-3 mt-3" style="max-width: 540px;">
+      <div class="row no-gutters">
+        <div class="col-md-4">
+          {% if student.picture %}
+            <img class="account-img" src="{{ url_for('static', filename='images/' + student.picture) }}" alt="" width="100%" height="90%" style="object-fit: cover; border-radius: 10px;">
+          {% else %}
+            <img class="account-img" src="{{ url_for('static', filename='images/KLK_Logo.jpg') }}" alt="" width="100%" height="90%" style="object-fit: cover; border-radius: 10px;">
+          {% endif %}
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h3 class="card-title text-primary">{{ student.studentname }}</h3>
+            <p class="card-text">school: <span class=" text-info">{{ student.school }}</span></p>
+            <p class="card-text">addmission: <span class=" text-info">{{ student.addmission }}</span></p>
+            <h5 class="card-text"><small class="text-muted">form: {{ student.form }}</small></h5>
+            <div class="d-flex " style="justify-content: space-between;">
+              <a href="{{ url_for('beneficiary_h', beneficiary_id=student.id) }}" class="btn btn-primary">view</a>
+              <form action="{{ url_for('delete_beneficiary', beneficiary_id=student.id) }}">
+                <input type="submit" value="delete" class="btn btn-danger">
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+{% endfor %}
+{% endblock %}

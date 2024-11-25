@@ -3,10 +3,10 @@
         <div class="content-section card mb-3 mt-3">
             <div class="card-body">
                 <h5 class="card-title text-primary">{{ beneficiary.studentname }}</h5>
-                <h6 class="card-subtitle mb-2 text-muted">{{ beneficiary.course }}</h6>
+                <h6 class="card-subtitle mb-2 text-muted">{{ beneficiary.form }}</h6>
                 <p class="card-text">{{ beneficiary.description }}</p>
                 <a href="{{url_for('campus_beneficiary')}}" class="card-link btn btn-primary">update</a>
-                <a href="{{url_for('campus')}}" class="card-link btn btn-primary">back</a>
+                <a href="{{url_for('high')}}" class="card-link btn btn-primary">back</a>
             </div>
         </div>
 {% endblock %}

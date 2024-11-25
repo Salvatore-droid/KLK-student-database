@@ -30,3 +30,18 @@ class Student(db.Model):
     def __repr__(self):
         return f"User('{self.studentname}','{self.addmission}', '{self.school}', '{self.year}', '{self.course}', '{self.results}', '{self.description}')"
 
+
+class High(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    studentname = db.Column(db.String(20), nullable=False)
+    addmission = db.Column(db.String(20), nullable=False)
+    school = db.Column(db.String(120), nullable=False)
+    form = db.Column(db.String, nullable=False)
+    description = db.Column(db.Text, nullable=False)
+    picture = db.Column(db.String(20),  nullable=False, default='KLK_Logo.jpg')
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
+    def __repr__(self):
+        return f"User('{self.studentname}','{self.addmission}', '{self.school}', '{self.form}', '{self.description}')"
+
+

@@ -6,8 +6,8 @@
             <h5 class="card-title">{{ student.studentname }}</h5>
             <h6 class="card-subtitle mb-2 text-muted">{{ student.course }}</h6>
             <p class="card-text">{{ student.description }}</p>
-            <a href="{{url_for('add_beneficiary')}}" class="card-link btn btn-primary">update</a>
-            <a href="{{url_for('home')}}" class="card-link btn btn-primary">home</a>
+            <a href="{{url_for('campus_beneficiary')}}" class="card-link btn btn-primary">update</a>
+            <a href="{{url_for('campus')}}" class="card-link btn btn-primary">back</a>
         </div>
     </div>
 {% endfor %}

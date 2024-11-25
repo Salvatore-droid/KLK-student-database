@@ -5,9 +5,9 @@
       <div class="row no-gutters">
         <div class="col-md-4">
           {% if student.picture %}
-            <img class="account-img" src="{{ url_for('static', filename='images/' + student.picture) }}" alt="" width="90%" height="90%" style="object-fit: cover; border-radius: 10px;">
+            <img class="account-img" src="{{ url_for('static', filename='images/' + student.picture) }}" alt="" width="100%" height="90%" style="object-fit: cover; border-radius: 10px;">
           {% else %}
-            <img class="account-img" src="{{ url_for('static', filename='images/KLK_Logo.jpg') }}" alt="" width="90%" height="90%" style="object-fit: cover; border-radius: 10px;">
+            <img class="account-img" src="{{ url_for('static', filename='images/KLK_Logo.jpg') }}" alt="" width="100%" height="90%" style="object-fit: cover; border-radius: 10px;">
           {% endif %}
         </div>
         <div class="col-md-8">

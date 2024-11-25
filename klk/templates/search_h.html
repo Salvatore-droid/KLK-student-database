@@ -16,9 +16,9 @@
                             <div class="card-body">
                                 <h3 class="card-title text-primary">{{ student.studentname }}</h3>
                                 <p class="card-text">school: <span class=" text-info">{{ student.school }}</span></p>
-                                <p class="card-text">course: <span class=" text-info">{{ student.course }}</span></p>
-                                <h5 class="card-text"><small class="text-muted">year: {{ student.year }}</small></h5>
-                                <a href="{{ url_for('beneficiary', beneficiary_id=student.id) }}" class="btn btn-primary">view</a>
+                                <p class="card-text">admission: <span class=" text-info">{{ student.addmission }}</span></p>
+                                <h5 class="card-text"><small class="text-muted">form: {{ student.form }}</small></h5>
+                                <a href="{{ url_for('beneficiary_h', beneficiary_id=student.id) }}" class="btn btn-primary">view</a>
                                 <form action="{{ url_for('delete_beneficiary', beneficiary_id=student.id) }}" method="POST">
                                     <input type="submit" value="delete" class="btn btn-danger">
                                 </form>
