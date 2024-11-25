@@ -162,7 +162,7 @@ def delete_beneficiary(beneficiary_id):
     flash(f'Student {beneficiary.studentname} successfullly deleted', 'success')
     return redirect(url_for('campus'))
 
-@app.route("/campus/<int:beneficiary_id>/delete")
+@app.route("/high/<int:beneficiary_id>/delete")
 @login_required
 def delete_beneficiary_h(beneficiary_id):
     beneficiary = High.query.filter_by(id=beneficiary_id, user_id=current_user.id).first_or_404()
