@@ -18,7 +18,7 @@
             <h5 class="card-text"><small class="text-muted">form: {{ student.form }}</small></h5>
             <div class="d-flex " style="justify-content: space-between;">
               <a href="{{ url_for('beneficiary_h', beneficiary_id=student.id) }}" class="btn btn-primary">view</a>
-              <form action="{{ url_for('delete_beneficiary', beneficiary_id=student.id) }}">
+              <form action="{{ url_for('delete_beneficiary_h', beneficiary_id=student.id) }}">
                 <input type="submit" value="delete" class="btn btn-danger">
               </form>
             </div>
